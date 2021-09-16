@@ -1,6 +1,7 @@
 import { isNil } from '@ramda/isnil/isNil';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import { makeUser } from '../actions/user';
 import PasswordField from '../components/shared/passwordField';
 import { FormStyle } from '../styles/form.style';
@@ -9,6 +10,7 @@ import { SingupStyle } from '../styles/signup.style';
 import { validatorPassword, validateEmail } from '../utility/helper';
 
 const Signup = ({ doMakeUser }) => {
+  const history = useHistory();
   const [email, emailHandler] = useState(null);
   const [name, nameHandler] = useState(null);
   const [password, passwordHandler] = useState(null);
@@ -16,6 +18,7 @@ const Signup = ({ doMakeUser }) => {
   // error State
   const [errorFieldPassword, errorFieldPasswordHandler] = useState(null);
   const [errorFieldEmail, errorFieldEmailHandler] = useState(null);
+  const [generalError, generalErrorHandler] = useState(null);
 
   const _validateEmail = (email) => {
     const _emailValid = validateEmail(email);
@@ -68,13 +71,18 @@ const Signup = ({ doMakeUser }) => {
     const _emailValid = _validateEmail(email);
 
     if (_passwordValid && _emailValid) {
-      console.log('_payload', _payload);
       doMakeUser(_payload)
         .then((response) => {
-          console.log('response', response);
+          const { success, message, id } = response;
+          if (success) {
+            history.push(`/success/${id}`);
+          } else {
+            generalErrorHandler(message);
+          }
         })
         .catch((error) => {
           console.log('error', error);
+          generalErrorHandler('Something went wrong');
         });
     }
   };
@@ -149,6 +157,15 @@ const Signup = ({ doMakeUser }) => {
                 </button>
               </form>
             </FormStyle>
+            {generalError && (
+              <p
+                style={{
+                  color: 'red',
+                  fontSize: '12px',
+                }}>
+                {generalError}
+              </p>
+            )}
           </div>
         </CointainerStyle>
       </SingupStyle>

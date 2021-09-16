@@ -4,56 +4,53 @@ import { HeaderStyle } from '../../styles/header.style';
 import { CointainerStyle } from '../../styles/layout.style';
 
 const Header = () => {
-
   const menus = [
     {
       title: 'Home',
-      url: '#'
+      url: '#',
     },
     {
       title: 'About',
-      url: '#'
+      url: '#',
     },
     {
       title: 'Pricing',
-      url: '#'
+      url: '#',
     },
     {
       title: 'Blogo',
-      url: '#'
+      url: '#',
     },
     {
       title: 'Page',
-      url: '#'
+      url: '#',
     },
     {
       title: 'Help',
-      url: '#'
+      url: '#',
     },
     {
       isButtom: true,
       title: 'Sign up',
-      url: '#'
+      url: '#',
     },
-  ]
+  ];
   return (
     <>
       <HeaderStyle>
         <CointainerStyle>
           <div>
-            <img src='assets/Logo.jpg' alt='logo' />
+            <img src='/assets/Logo.jpg' alt='logo' />
           </div>
           <div>
             <ul>
-              {
-                menus.map((e, i) => (
-                  <Fragment key={i}>
-                    <li className={`${e.isButtom ? 'btn' : ''}`}>
-                      <Link to='/'>{e.title}</Link>
-                    </li>
-                  </Fragment>
-                ))
-              }
+              {menus.map((e, i) => (
+                <Fragment key={i}>
+                  <li className={`${e.isButtom ? 'btn' : ''}`}>
+                    <Link to='/'>{e.title}</Link>
+                  </li>
+                </Fragment>
+              ))}
             </ul>
           </div>
         </CointainerStyle>
