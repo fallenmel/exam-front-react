@@ -42,5 +42,20 @@ export const HeaderStyle = styled.div`
         }
       }
     }
+
+    @media (max-width: 768px) {
+      display: block;
+
+      & > div {
+        &:last-child {
+          justify-content: center;
+          flex-wrap: wrap;
+
+          ul li{
+            margin: 10px;
+          }
+        }
+      }
+    }
   }
 `;
